@@ -118,3 +118,143 @@ Widget buildTitleText({required String text}) {
     style: TextStyleBold(color: ColorRes.dark, fontSize: 24.sp),
   );
 }
+
+Widget buildHistoryText(String text) {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(left: 18, right: 18, top: 16, bottom: 16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 10,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 24, top: 24),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // Разместить элементы в конце
+      children: [
+        Text(
+          text,
+          style: const TextStyleMedium(color: Colors.black, fontSize: 14.0),
+        ),
+        const Icon(
+          Icons.close,
+          color: Colors.black,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildHabit(String title, String emoji, String number) {
+  return Container(
+    margin: const EdgeInsets.all(18),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 10,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    child: IntrinsicWidth(
+      child: IntrinsicHeight(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                title,
+                style: const TextStyleMedium(color: Colors.blue, fontSize: 10),
+              ),
+            ),
+            Container(
+              width: 65.0,
+              height: 65.0,
+              margin: const EdgeInsets.only(top: 12.0),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    value: 0.7,
+                    strokeWidth: 8.0,
+                    backgroundColor: Colors.grey,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                  Text(
+                    emoji, // Ваш текст
+                    style: TextStyle(
+                      color: Colors.black, // Цвет текста
+                      fontSize: 10.0, // Размер текста
+                      fontWeight: FontWeight.bold, // Жирный шрифт
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(1.0),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(2.0),
+              ),
+              child: Text(
+                number,
+                style:
+                    const TextStyleMedium(color: Colors.white, fontSize: 8.0),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget buildRecordText(String text, String tRecord) {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(left: 18, right: 18, top: 16, bottom: 16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 10,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 14, top: 20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // Разместить элементы в конце
+      children: [
+        Text(
+          text,
+          style: const TextStyleMedium(color: Colors.black, fontSize: 14.0),
+        ),
+        Text(
+          tRecord,
+          style: const TextStyleMedium(color: Colors.black, fontSize: 14.0),
+        ),
+      ],
+    ),
+  );
+}
