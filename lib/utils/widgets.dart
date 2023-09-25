@@ -168,39 +168,39 @@ Widget buildHabit(String title, String emoji, String number) {
         ),
       ],
     ),
-    child: IntrinsicWidth(
-      child: IntrinsicHeight(
+    child: IntrinsicHeight(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10.0),
               child: Text(
                 title,
-                style: const TextStyleMedium(color: Colors.blue, fontSize: 10),
+                style: TextStyleMedium(color: Colors.blue, fontSize: 14.sp),
               ),
             ),
             Container(
-              width: 65.0,
-              height: 65.0,
-              margin: const EdgeInsets.only(top: 12.0),
+              margin: EdgeInsets.all(22.0),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  CircularProgressIndicator(
-                    value: 0.7,
-                    strokeWidth: 8.0,
-                    backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                  ),
                   Text(
                     emoji, // Ваш текст
-                    style: TextStyle(
-                      color: Colors.black, // Цвет текста
-                      fontSize: 10.0, // Размер текста
-                      fontWeight: FontWeight.bold, // Жирный шрифт
+                    style: TextStyleMedium(
+                      color: Colors.black,
+                      fontSize: 25.0,
                     ),
                   ),
+                  Transform.scale(
+                    scale: 2.0, // Увеличьте это значение, чтобы увеличить размер прогресс бара
+                    child: CircularProgressIndicator(
+                      value: 0.7,
+                      strokeWidth: 5.0,
+                      backgroundColor: Colors.grey,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    ),
+                  )
+
                 ],
               ),
             ),
@@ -215,13 +215,12 @@ Widget buildHabit(String title, String emoji, String number) {
               child: Text(
                 number,
                 style:
-                    const TextStyleMedium(color: Colors.white, fontSize: 8.0),
+                    const TextStyleMedium(color: Colors.white, fontSize: 16.0),
               ),
             ),
           ],
         ),
       ),
-    ),
   );
 }
 

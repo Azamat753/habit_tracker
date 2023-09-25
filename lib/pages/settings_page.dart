@@ -13,7 +13,14 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar("Настройки"),
-      body: buildHistoryText("15 января 2023 г. 16:30")
+      body:  GridView.count(
+        crossAxisCount: 2, // Количество колонок в сетке (в данном случае 2)
+        children: <Widget>[
+          buildHabit("Вставать в 6 утра", "😋", "1 / 21"),
+
+          // Другие элементы сетки добавляются здесь
+        ],
+      ),
       // Container(
       //   width: 85.0,
       //   height: 85.0,
