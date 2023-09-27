@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import '../resources/color_res.dart';
 import '../resources/text_style.dart';
@@ -107,7 +110,7 @@ AppBar buildAppBarWithBack(String text, Function() onBackPressed) {
     titleSpacing: -5,
     title: Text(
       text,
-      style: TextStyleRegular(color: ColorRes.lightBlue, fontSize: 16.0),
+      style: TextStyleRegular(color: ColorRes.lightBlue, fontSize: 16.0.sp),
     ),
   );
 }
@@ -153,9 +156,40 @@ Widget buildHistoryText(String text) {
   );
 }
 
-Widget buildHabit(String title, String emoji, String number) {
+Widget emoji(String emoji) {
   return Container(
-    margin: const EdgeInsets.all(18),
+    margin: EdgeInsets.all(32.0),
+    child: Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        Transform.scale(
+          scale: 2.5,
+          child: CircularProgressIndicator(
+            value: 0.7,
+            strokeWidth: 5.0,
+            backgroundColor: Colors.grey,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+          ),
+        ),
+        Text(
+          emoji, // Ваш текст
+          style: TextStyleMedium(
+            color: Colors.black,
+            fontSize: 25.0.sp,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildHabit(
+  String title,
+  String emoji,
+  String number,
+) {
+  return Container(
+    margin: EdgeInsets.all(18),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
@@ -164,63 +198,111 @@ Widget buildHabit(String title, String emoji, String number) {
           color: Colors.grey.withOpacity(0.3),
           spreadRadius: 1,
           blurRadius: 10,
-          offset: const Offset(0, 2),
+          offset: Offset(0, 2),
         ),
       ],
     ),
     child: IntrinsicHeight(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                title,
-                style: TextStyleMedium(color: Colors.blue, fontSize: 14.sp),
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              title,
+              style: TextStyleMedium(color: Colors.blue, fontSize: 14.sp),
             ),
-            Container(
-              margin: EdgeInsets.all(22.0),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Text(
-                    emoji, // Ваш текст
-                    style: TextStyleMedium(
-                      color: Colors.black,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                  Transform.scale(
-                    scale: 2.0, // Увеличьте это значение, чтобы увеличить размер прогресс бара
-                    child: CircularProgressIndicator(
-                      value: 0.7,
-                      strokeWidth: 5.0,
-                      backgroundColor: Colors.grey,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                    ),
-                  )
-
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10.0),
+          ),
+          Container(
+            margin: EdgeInsets.all(32.0),
+            child: Stack(
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(1.0),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-              child: Text(
-                number,
-                style:
-                    const TextStyleMedium(color: Colors.white, fontSize: 16.0),
-              ),
+              children: [
+                Text(
+                  emoji, // Ваш текст
+                  style: TextStyleMedium(
+                    color: Colors.black,
+                    fontSize: 25.0.sp,
+                  ),
+                ),
+                Transform.scale(
+                  scale: 2.0,
+                  // Увеличьте это значение, чтобы увеличить размер прогресс бара
+                  child: CircularProgressIndicator(
+                    value: 0.7,
+                    strokeWidth: 5.0,
+                    backgroundColor: Colors.grey,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(1.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(2.0),
+            ),
+            child: Text(
+              number,
+              style: const TextStyleMedium(color: Colors.white, fontSize: 16.0),
+            ),
+          ),
+        ],
       ),
+    ),
+  );
+}
+
+Widget buttonSettings(String text) {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(left: 18, right: 18, top: 16, bottom: 16),
+    decoration: BoxDecoration(
+      color: ColorRes.blue,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 10,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    padding: EdgeInsets.only(left: 14.dg, top: 8.dg, bottom: 8.dg),
+    child: Text(
+      text,
+      style: TextStyleRegular(color: Colors.white, fontSize: 14.0.sp),
+    ),
+  );
+}
+
+Widget buttonDetail(String text) {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.only(left: 43, right: 43, top: 16, bottom: 16),
+    decoration: BoxDecoration(
+      color: ColorRes.blue,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 10,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    padding: EdgeInsets.only(top: 8.dg, bottom: 8.dg),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyleRegular(color: Colors.white, fontSize: 14.0.sp),
+    ),
   );
 }
 

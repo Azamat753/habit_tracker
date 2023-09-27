@@ -6,5 +6,5 @@ class ColorRes {
   static HexColor white = HexColor("#FFFFFF");
   static HexColor gray = HexColor("#808080");
   static HexColor lightGray = HexColor("#E6E8EB");
-
+  static HexColor blue = HexColor("#1460D3");
 }

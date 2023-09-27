@@ -6,7 +6,6 @@ import 'package:habit_tracker/utils/general_bloc_observable.dart';
 import 'package:habit_tracker/utils/router.gr.dart';
 import 'package:habit_tracker/utils/router_observer.dart';
 import 'package:loggy/loggy.dart';
-
 import 'di/di.dart';
 
 void main() async {
