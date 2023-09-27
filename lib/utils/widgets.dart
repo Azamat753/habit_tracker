@@ -157,7 +157,6 @@ Widget buildHistoryText(String text) {
 }
 
 Widget emoji(String emoji) {
-
   return Container(
     margin: EdgeInsets.all(32.0),
     child: Stack(
