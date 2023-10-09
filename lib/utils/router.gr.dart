@@ -33,7 +33,7 @@ class AppRouter extends _i6.RootStackRouter {
         child: const _i1.BottomNavPage(),
       );
     },
-    HabitDetailRoute.name: (routeData) {
+    HabitDetailRoute.name: (routeDa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ta) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.HabitDetailPage(),
