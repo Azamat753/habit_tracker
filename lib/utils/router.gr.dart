@@ -24,6 +24,7 @@ class AppRouter extends _i6.RootStackRouter {
   AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
+
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
     BottomNavRoute.name: (routeData) {
