@@ -22,7 +22,6 @@ class _BottomNavPageState extends State<BottomNavPage> {
         MainRoute(),
         FollowRoute(),
         SettingRoute(),
-
       ],
       builder: (context, child, animation) {
         final tabsRouter = AutoTabsRouter.of(context);
