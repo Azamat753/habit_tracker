@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/utils/widgets.dart';
-
-import '../resources/color_res.dart';
+import '../utils/ext.dart';
+import 'dialogHabit.dart';
+import 'habit_detail_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -20,23 +21,12 @@ class _MainPageState extends State<MainPage> {
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
-              Positioned(
-                right: 1,
-                bottom: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: FloatingActionButton(
-                    backgroundColor: ColorRes.white,
-                    onPressed: () {
-                      // _showCreateCategoryDialog(context);
-                    },
-                    child: Icon(
-                      Icons.add,
-                      color: ColorRes.lightBlue,
-                    ),
-                  ),
-                ),
-              ),
+              habitMain("😀", "Вставать в 6 утра", "Рекорд - 9 дней",
+                  "Попыток - 1", "5/14", () {
+                Navigator.of(context).push(createRoute(HabitDetailPage()));
+              }),
+              circleButton(
+                  () => showBottomDetailDialog(context, ShowBottomSheet()))
             ],
           ),
         ),

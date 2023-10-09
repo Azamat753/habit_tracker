@@ -40,3 +40,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+String name(){
+  return "";
+}
