@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:habit_tracker/db/model/habit_model.dart';
 import '../resources/color_res.dart';
 import '../resources/text_style.dart';
 
@@ -480,8 +481,8 @@ Widget newHabit() {
   );
 }
 
-Widget habitMain(String emojiText, String textHabit, String textRecord,
-    String textAttempt, String textDay, Function() onTap) {
+Widget habitMain( String emojiText, String textHabit, String textRecord,
+    int textAttempt, int textDay, Function() onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Padding(
@@ -535,7 +536,7 @@ Widget habitMain(String emojiText, String textHabit, String textRecord,
                           SizedBox(
                             width: 18.w,
                           ),
-                          Text(textAttempt,
+                          Text(textAttempt.toString(),
                               style: TextStyleRegular(
                                   fontSize: 10.sp, color: ColorRes.blue)),
                         ],
@@ -556,7 +557,7 @@ Widget habitMain(String emojiText, String textHabit, String textRecord,
                   color: Colors.blue,
                 ),
                 child: Text(
-                  textDay,
+                  textDay.toString(),
                   style: TextStyleMedium(
                     fontSize: 12.sp,
                     color: Colors.white,

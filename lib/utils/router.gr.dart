@@ -17,13 +17,12 @@ import 'package:flutter/material.dart' as _i7;
 import '../pages/bottom_nav_page.dart' as _i1;
 import '../pages/follow_page.dart' as _i4;
 import '../pages/habit_detail_page.dart' as _i2;
-import '../pages/main_page.dart' as _i3;
+import '../pages/main/main_page.dart' as _i3;
 import '../pages/settings_page.dart' as _i5;
 
 class AppRouter extends _i6.RootStackRouter {
   AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
-
 
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
@@ -33,7 +32,7 @@ class AppRouter extends _i6.RootStackRouter {
         child: const _i1.BottomNavPage(),
       );
     },
-    HabitDetailRoute.name: (routeDa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ta) {
+    HabitDetailRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.HabitDetailPage(),

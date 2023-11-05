@@ -25,7 +25,7 @@ Route createRoute(Widget page) {
 void showBottomDetailDialog(BuildContext context, Widget page) {
   showModalBottomSheet(
     context: context,
-    isScrollControlled: false,
+    isScrollControlled: true,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     builder: (context) {
       return page;
