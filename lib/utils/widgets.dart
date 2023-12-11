@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:habit_tracker/db/model/habit_model.dart';
 import '../resources/color_res.dart';
 import '../resources/text_style.dart';
 
@@ -481,17 +478,18 @@ Widget newHabit() {
   );
 }
 
-Widget habitMain( String emojiText, String textHabit, String textRecord,
-    int textAttempt, int textDay, Function() onTap) {
+Widget habitMain(String emojiText, String textHabit, String textRecord,
+    int textAttempt, int textDay, Function() onTap, Function() onLongPress) {
   return GestureDetector(
     onTap: onTap,
+    onLongPress: onLongPress,
     child: Padding(
       padding: EdgeInsets.all(18),
       child: IntrinsicHeight(
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.only(
-            top: 20.w,
+            top: 12.w,
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -522,23 +520,26 @@ Widget habitMain( String emojiText, String textHabit, String textRecord,
                     children: [
                       Text(textHabit,
                           textAlign: TextAlign.justify,
-                          style: TextStyleRegular(
-                              fontSize: 14.sp, color: ColorRes.blue)),
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          )),
                       SizedBox(
                         height: 24.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(textRecord,
+                          Text("Попытки: ${textRecord}",
                               style: TextStyleRegular(
-                                  fontSize: 10.sp, color: ColorRes.blue)),
+                                  fontSize: 14.sp, color: Colors.black)),
                           SizedBox(
                             width: 18.w,
                           ),
-                          Text(textAttempt.toString(),
+                          Text("Рекорд: ${textAttempt}",
                               style: TextStyleRegular(
-                                  fontSize: 10.sp, color: ColorRes.blue)),
+                                  fontSize: 14.sp, color: Colors.black)),
                         ],
                       ),
                     ],
@@ -547,7 +548,7 @@ Widget habitMain( String emojiText, String textHabit, String textRecord,
               ),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(top: 16.h),
+                margin: EdgeInsets.only(top: 8.h),
                 width: double.infinity,
                 height: 20.h,
                 decoration: const BoxDecoration(
@@ -557,7 +558,7 @@ Widget habitMain( String emojiText, String textHabit, String textRecord,
                   color: Colors.blue,
                 ),
                 child: Text(
-                  textDay.toString(),
+                  "${textDay} / 7",
                   style: TextStyleMedium(
                     fontSize: 12.sp,
                     color: Colors.white,
@@ -572,7 +573,7 @@ Widget habitMain( String emojiText, String textHabit, String textRecord,
   );
 }
 
-Widget editDialog() {
+Widget editDialog(TextEditingController textFieldController) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 44, vertical: 26),
     child: Container(
@@ -589,6 +590,7 @@ Widget editDialog() {
         ],
       ),
       child: TextField(
+        controller: textFieldController,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -625,7 +627,7 @@ Widget circleButton(Function() onTap) {
   );
 }
 
-Widget editEmojiDialog() {
+Widget editEmojiDialog(TextEditingController emojiController) {
   return Padding(
     padding: EdgeInsets.symmetric(
       horizontal: 108,
@@ -644,6 +646,7 @@ Widget editEmojiDialog() {
         ],
       ),
       child: TextField(
+        controller: emojiController,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -690,5 +693,72 @@ Widget buttonDialog(String text, Function() onTap) {
         style: TextStyleRegular(color: Colors.white, fontSize: 14.0.sp),
       ),
     ),
+  );
+}
+
+Future<void> showMyDialog(BuildContext context, Function() deleteHabit) {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Center(
+            child: Text(
+          'Удалить?',
+          style: TextStyle(fontSize: 30),
+        )),
+        content: const SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                    child: Text(
+                  'Привычка будет удалена',
+                  style: TextStyle(fontSize: 24),
+                )),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buttonDefault('Нет', () {
+                Navigator.of(context).pop();
+              }, Colors.grey),
+              buttonDefault('Да', deleteHabit, ColorRes.blue),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Widget buttonDefault(String text, Function() onClick, Color buttonColor) {
+  return Container(
+    margin: const EdgeInsets.only(left: 13, right: 13, top: 16, bottom: 16),
+    decoration: BoxDecoration(
+      color: buttonColor,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 10,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    child: TextButton(
+        onPressed: onClick,
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyleRegular(color: Colors.white, fontSize: 16.0.sp),
+        )),
   );
 }

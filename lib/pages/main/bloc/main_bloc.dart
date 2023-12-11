@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:habit_tracker/db/model/habit_model.dart';
-import 'package:habit_tracker/repositury/AbstractRepository.dart';
+import 'package:habit_tracker/repository/AbstractRepository.dart';
 import 'package:meta/meta.dart';
 
 part 'main_event.dart';
@@ -20,6 +18,19 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         emit((HabitListLoaded(habitList: coinsList)));
       } catch (e) {
         emit((HabitListLoadingError(exception: e)));
+      }
+    });
+
+    on<DeleteHabit>((event, emit) async {
+      try {
+        if (state is! HabitListLoaded) {
+          emit(HabitListLoading());
+        }
+        await repository.deleteHabit(event.habitModel);
+        final coinsList = await repository.getHabitList();
+        emit((HabitListLoaded(habitList: coinsList)));
+      } catch (e) {
+        HabitDeleteLoadedFailure(e);
       }
     });
   }

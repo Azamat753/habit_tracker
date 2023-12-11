@@ -1,8 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:habit_tracker/db/appdatabase.dart';
 import 'package:habit_tracker/db/dao/habit_dao.dart';
 import 'package:habit_tracker/db/model/habit_model.dart';
-import 'package:habit_tracker/repositury/AbstractRepository.dart';
+import 'package:habit_tracker/repository/AbstractRepository.dart';
 
 class Repository implements AbstractRepository {
   final habitDao = GetIt.instance<HabitDao>();
@@ -15,5 +14,10 @@ class Repository implements AbstractRepository {
   @override
   Future<List<HabitModel>> getHabitList() async {
     return await habitDao.getAllData();
+  }
+
+  @override
+  Future<void> deleteHabit(HabitModel habitModel) async {
+    habitDao.deleteHabit(habitModel);
   }
 }

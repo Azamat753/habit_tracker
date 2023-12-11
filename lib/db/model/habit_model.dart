@@ -1,7 +1,6 @@
 import 'dart:core';
 
 import 'package:floor/floor.dart';
-import 'package:injectable/injectable.dart';
 
 @entity
 class HabitModel {
@@ -16,7 +15,6 @@ class HabitModel {
   final int attempts;
   final String record;
   final String fbName;
-
   // final DateTime startDate;
   // final DateTime endDate;
 
@@ -33,5 +31,4 @@ class HabitModel {
       // this.startDate,
       // this.endDate
       );
-
 }

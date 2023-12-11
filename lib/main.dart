@@ -1,11 +1,10 @@
-import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_tracker/db/appdatabase.dart';
-import 'package:habit_tracker/repositury/AbstractRepository.dart';
-import 'package:habit_tracker/repositury/repository.dart';
+import 'package:habit_tracker/repository/AbstractRepository.dart';
+import 'package:habit_tracker/repository/repository.dart';
 import 'package:habit_tracker/resources/color_res.dart';
 import 'package:habit_tracker/utils/general_bloc_observable.dart';
 import 'package:habit_tracker/utils/router.gr.dart';

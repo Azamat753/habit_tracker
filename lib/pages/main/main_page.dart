@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_tracker/utils/widgets.dart';
 import '../../db/dao/habit_dao.dart';
-import '../../repositury/AbstractRepository.dart';
+import '../../repository/AbstractRepository.dart';
 import '../../utils/ext.dart';
 import '../dialog/dialogHabit.dart';
 import '../habit_detail_page.dart';
@@ -24,7 +24,6 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _habitListBloc.add(LoadHabitList());
-    print(habitDao.getAllData());
   }
 
   @override
@@ -36,7 +35,6 @@ class _MainPageState extends State<MainPage> {
         bloc: _habitListBloc,
         builder: (context, state) {
           if (state is HabitListLoaded) {
-            print('object');
             return SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Stack(
@@ -58,11 +56,21 @@ class _MainPageState extends State<MainPage> {
                           Navigator.of(context)
                               .push(createRoute(HabitDetailPage()));
                         },
+                        () {
+                          showMyDialog(context, () {
+                            _habitListBloc.add(DeleteHabit(habitModel: coin));
+                            Navigator.of(context).pop();
+                          });
+                        },
                       );
                     },
                   ),
                   circleButton(
-                      () => showBottomDetailDialog(context, ShowBottomSheet()))
+                      () => showBottomDetailDialog(context, ShowBottomSheet(
+                            onButtonPressed: () {
+                              _habitListBloc.add(LoadHabitList());
+                            },
+                          )))
                 ],
               ),
             );
@@ -70,11 +78,9 @@ class _MainPageState extends State<MainPage> {
           if (state is HabitListLoadingError) {
             return Text("${state.exception}");
           }
-          return Center(
-              child: Text(
-            "Error",
-            style: TextStyle(fontSize: 100),
-          ));
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     ));

@@ -17,3 +17,14 @@ class HabitListLoadingError extends MainState {
   HabitListLoadingError({required this.exception});
   final Object? exception;
 }
+
+class HabitDeleteLoadingState extends MainState {}
+
+class HabitDeleteLoadedState extends MainState {
+
+}
+
+class HabitDeleteLoadedFailure extends MainState {
+  HabitDeleteLoadedFailure(this.exception);
+  final Object exception;
+}
