@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:floor/floor.dart';
@@ -31,4 +32,10 @@ class HabitModel {
       // this.startDate,
       // this.endDate
       );
+
+  // Преобразовать список в JSON-строку перед сохранением в базу данных
+  String get historyListToJson => jsonEncode(history);
+
+  // Преобразовать JSON-строку обратно в список после получения из базы данных
+  List<String> get historyListFromJson => jsonDecode(history);
 }

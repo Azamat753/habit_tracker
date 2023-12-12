@@ -14,7 +14,7 @@ class DataHelper {
       required this.stopKey,
       required this.sharedPreferences})
       : _START_TIME_KEY = startKey,
-        _STOP_TIME_KEY = '$stopKey',
+        _STOP_TIME_KEY = stopKey,
         _COUNTING_KEY = '$startKey counting' {
     initSharedPreference();
     // _timerCounting =sharedPreferences.getBool(_COUNTING_KEY,false);

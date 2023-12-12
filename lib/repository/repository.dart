@@ -20,4 +20,10 @@ class Repository implements AbstractRepository {
   Future<void> deleteHabit(HabitModel habitModel) async {
     habitDao.deleteHabit(habitModel);
   }
+
+  @override
+  Future<void> updateHabit(HabitModel habitModel) async {
+    habitDao.updateHabit(habitModel);
+  }
+
 }

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/pages/dialog/dialogHabit.dart';
 import 'package:habit_tracker/pages/follow_page.dart';
-import 'package:habit_tracker/pages/habit_detail_page.dart';
+import 'package:habit_tracker/pages/detail/habit_detail_page.dart';
 import 'package:habit_tracker/pages/main/main_page.dart';
 import 'package:habit_tracker/pages/settings_page.dart';
 import 'package:habit_tracker/pages/bottom_nav_page.dart';

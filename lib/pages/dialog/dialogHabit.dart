@@ -9,6 +9,7 @@ import 'package:habit_tracker/utils/widgets.dart';
 import '../../utils/router.dart';
 import 'bloc/dialog_habit_bloc.dart';
 
+
 @RoutePage()
 class ShowBottomSheet extends StatefulWidget {
   const ShowBottomSheet({super.key, required this.onButtonPressed});
@@ -32,10 +33,9 @@ class _ShowBottomSheet extends State<ShowBottomSheet> {
   }
 
   void addData(String name, String icon) {
-
     _dialogBloc.add(DialogAddHabitEvent(
         habitModel: habitModel = HabitModel(
-            null, "category", name, icon, 0, 0, "history", 0, '', '')));
+            null, "category", name, icon, 0, 0, "history", 0, '', '',)));
   }
 
   @override
@@ -85,7 +85,7 @@ class _ShowBottomSheet extends State<ShowBottomSheet> {
                               "history",
                               0,
                               '0',
-                              '')));
+                              '',)));
                       widget.onButtonPressed();
                       // addData(nameController.text, emojiController.text);
                     });
@@ -102,8 +102,4 @@ class _ShowBottomSheet extends State<ShowBottomSheet> {
       },
     );
   }
-}
-
-void makeGet(Function getList) {
-  getList();
 }

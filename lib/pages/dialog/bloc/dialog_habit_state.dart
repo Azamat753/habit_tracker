@@ -10,9 +10,7 @@ class DialogHabitInitial extends DialogHabitState {}
 
 class DialogLoadingState extends DialogHabitState {}
 
-class DialogLoadedState extends DialogHabitState {
-
-}
+class DialogLoadedState extends DialogHabitState {}
 
 class DialogLoadedFailure extends DialogHabitState {
   DialogLoadedFailure(this.exception);
