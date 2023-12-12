@@ -1,6 +1,8 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/utils/widgets.dart';
 
+@RoutePage()
 class FollowPage extends StatefulWidget {
   const FollowPage({super.key});
 

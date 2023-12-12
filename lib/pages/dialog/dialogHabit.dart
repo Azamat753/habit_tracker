@@ -1,13 +1,15 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_tracker/db/model/habit_model.dart';
 import 'package:habit_tracker/repository/AbstractRepository.dart';
 import 'package:habit_tracker/utils/widgets.dart';
-import '../../utils/ext.dart';
-import '../habit_detail_page.dart';
+import '../../utils/router.dart';
 import 'bloc/dialog_habit_bloc.dart';
 
+@RoutePage()
 class ShowBottomSheet extends StatefulWidget {
   const ShowBottomSheet({super.key, required this.onButtonPressed});
   final VoidCallback onButtonPressed;
@@ -22,14 +24,17 @@ class _ShowBottomSheet extends State<ShowBottomSheet> {
 
   final _dialogBloc = DialogHabitBloc(GetIt.I<AbstractRepository>());
 
+  late HabitModel habitModel;
+
   @override
   void initState() {
     super.initState();
   }
 
   void addData(String name, String icon) {
+
     _dialogBloc.add(DialogAddHabitEvent(
-        habitModel: HabitModel(
+        habitModel: habitModel = HabitModel(
             null, "category", name, icon, 0, 0, "history", 0, '', '')));
   }
 
@@ -70,7 +75,7 @@ class _ShowBottomSheet extends State<ShowBottomSheet> {
                   buttonDialog("Создать", () {
                     setState(() {
                       _dialogBloc.add(DialogAddHabitEvent(
-                          habitModel: HabitModel(
+                          habitModel: habitModel= HabitModel(
                               null,
                               "category",
                               nameController.text,
@@ -85,9 +90,9 @@ class _ShowBottomSheet extends State<ShowBottomSheet> {
                       // addData(nameController.text, emojiController.text);
                     });
                     Navigator.pop(context);
-                    Navigator.of(context)
-                        .push(createRoute(const HabitDetailPage()))
-                        .then((value) {});
+                    AutoRouter.of(context).push(HabitDetailRoute(habitModel: habitModel));
+                    // Navigator.of(context)
+                    //     .push(createRoute(HabitDetailPage()));
                   }),
                 ],
               ),

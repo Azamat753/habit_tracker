@@ -87,7 +87,7 @@ AppBar buildAppBar(String text) {
   return AppBar(
     title: Text(
       text,
-      style: TextStyleRegular(color: ColorRes.lightBlue, fontSize: 16.0),
+      style: TextStyleRegular(color: ColorRes.blue, fontSize: 16.0),
     ),
   );
 }
@@ -132,7 +132,7 @@ AppBar buildAppBarWithBack(
   );
 }
 
-Widget buildHistoryText(String text) {
+Widget buildHistoryText(String text,Function() deleteDate) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.symmetric(vertical: 18.h, horizontal: 16.w),
@@ -157,9 +157,12 @@ Widget buildHistoryText(String text) {
           text,
           style: TextStyleMedium(color: Colors.black, fontSize: 14.0.sp),
         ),
-        const Icon(
-          Icons.close,
-          color: Colors.black,
+        GestureDetector(
+          onTap: deleteDate,
+          child: const Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
         ),
       ],
     ),
@@ -179,7 +182,7 @@ Widget emoji(
       children: [
         Transform.scale(
           scale: size,
-          child: SizedBox(
+          child: const SizedBox(
             child: CircularProgressIndicator(
               value: 0.7,
               strokeWidth: 5.0,
@@ -206,8 +209,8 @@ Widget emojiDetail(
   double sizeText,
 ) {
   return Container(
-    padding: EdgeInsets.all(10),
-    margin: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(10),
+    margin: const EdgeInsets.all(20),
     child: Stack(
       alignment: Alignment.center,
       children: [
@@ -216,7 +219,7 @@ Widget emojiDetail(
           child: SizedBox(
             height: 32.h,
             width: 34.w,
-            child: CircularProgressIndicator(
+            child: const CircularProgressIndicator(
               value: 0.7,
               strokeWidth: 5.0,
               backgroundColor: Colors.grey,
@@ -242,7 +245,7 @@ Widget buildHabit(
   String number,
 ) {
   return Container(
-    margin: EdgeInsets.all(18),
+    margin: const EdgeInsets.all(18),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
@@ -260,7 +263,7 @@ Widget buildHabit(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Text(
               title,
               style: TextStyleMedium(color: Colors.blue, fontSize: 14.sp),
@@ -330,7 +333,7 @@ Widget nameFollow(String text) {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Text(
           "Azamat",
           style: TextStyleMedium(fontSize: 14.sp, color: ColorRes.dark),
@@ -340,27 +343,30 @@ Widget nameFollow(String text) {
   );
 }
 
-Widget buttonDetail(String text) {
-  return Container(
-    width: double.infinity,
-    margin: const EdgeInsets.only(left: 43, right: 43, top: 16, bottom: 16),
-    decoration: BoxDecoration(
-      color: ColorRes.blue,
-      borderRadius: BorderRadius.circular(10.0),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.3),
-          spreadRadius: 1,
-          blurRadius: 10,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    padding: EdgeInsets.only(top: 8.dg, bottom: 8.dg),
-    child: Text(
-      text,
-      textAlign: TextAlign.center,
-      style: TextStyleRegular(color: Colors.white, fontSize: 14.0.sp),
+Widget buttonDetail(String text,Function() onClick) {
+  return GestureDetector(
+    onTap: onClick,
+    child: Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(left: 43, right: 43, top: 16, bottom: 16),
+      decoration: BoxDecoration(
+        color: ColorRes.blue,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.only(top: 8.dg, bottom: 8.dg),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyleRegular(color: Colors.white, fontSize: 14.0.sp),
+      ),
     ),
   );
 }
@@ -456,7 +462,7 @@ Widget newHabit() {
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           color: Colors.white,
@@ -484,7 +490,7 @@ Widget habitMain(String emojiText, String textHabit, String textRecord,
     onTap: onTap,
     onLongPress: onLongPress,
     child: Padding(
-      padding: EdgeInsets.all(18),
+      padding: const EdgeInsets.all(18),
       child: IntrinsicHeight(
         child: Container(
           width: double.infinity,
@@ -499,7 +505,7 @@ Widget habitMain(String emojiText, String textHabit, String textRecord,
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
           ),

@@ -1,10 +1,9 @@
-import 'package:floor/floor.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_tracker/db/appdatabase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../db/dao/habit_dao.dart';
-import '../utils/router.gr.dart';
+import '../utils/router.dart';
 import 'di.config.dart';
 
 

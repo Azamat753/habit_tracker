@@ -1,14 +1,17 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:habit_tracker/utils/router.dart';
 import 'package:habit_tracker/utils/widgets.dart';
 import '../../db/dao/habit_dao.dart';
 import '../../repository/AbstractRepository.dart';
 import '../../utils/ext.dart';
 import '../dialog/dialogHabit.dart';
-import '../habit_detail_page.dart';
 import 'bloc/main_bloc.dart';
 
+@RoutePage()
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -45,20 +48,21 @@ class _MainPageState extends State<MainPage> {
                     physics: const BouncingScrollPhysics(),
                     separatorBuilder: (context, index) => const Divider(),
                     itemBuilder: (context, i) {
-                      final coin = state.habitList[i];
+                      final habit = state.habitList[i];
                       return habitMain(
-                        coin.icon,
-                        coin.title,
-                        coin.record,
-                        coin.attempts,
-                        coin.currentDay,
+                        habit.icon,
+                        habit.title,
+                        habit.record,
+                        habit.attempts,
+                        habit.currentDay,
                         () {
-                          Navigator.of(context)
-                              .push(createRoute(HabitDetailPage()));
+                          AutoRouter.of(context).push(HabitDetailRoute(habitModel: habit));
+                          // Navigator.of(context)
+                          //     .push(createRoute(const HabitDetailPage()));
                         },
                         () {
                           showMyDialog(context, () {
-                            _habitListBloc.add(DeleteHabit(habitModel: coin));
+                            _habitListBloc.add(DeleteHabit(habitModel: habit));
                             Navigator.of(context).pop();
                           });
                         },

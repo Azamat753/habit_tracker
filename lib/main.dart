@@ -7,11 +7,10 @@ import 'package:habit_tracker/repository/AbstractRepository.dart';
 import 'package:habit_tracker/repository/repository.dart';
 import 'package:habit_tracker/resources/color_res.dart';
 import 'package:habit_tracker/utils/general_bloc_observable.dart';
-import 'package:habit_tracker/utils/router.gr.dart';
-import 'package:habit_tracker/utils/router_observer.dart';
 import 'package:loggy/loggy.dart';
 import 'db/dao/habit_dao.dart';
 import 'di/di.dart';
+import 'utils/router.dart';
 
 void setupLocator() {
   GetIt.instance.registerSingletonAsync<AppDatabase>(() async {
@@ -50,10 +49,11 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(builder: ((context, child) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          routeInformationParser: _appRouter.defaultRouteParser(),
-          routerDelegate: _appRouter.delegate(
-            navigatorObservers: () => [RouterObserver()],
-          ),
+          routerConfig: _appRouter.config(),
+         // routeInformationParser: _appRouter.defaultRouteParser(),
+        //  routerDelegate: _appRouter.delegate(
+        //     navigatorObservers: () => [RouterObserver()],
+        //   ),
           theme: ThemeData(
             colorScheme:
                 ThemeData().colorScheme.copyWith(primary: ColorRes.white),
