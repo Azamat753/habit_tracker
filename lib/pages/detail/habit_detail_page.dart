@@ -4,12 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_tracker/db/model/habit_model.dart';
+import 'package:habit_tracker/pages/detail/bloc/habit_detail_cubit.dart';
 import 'package:habit_tracker/repository/AbstractRepository.dart';
 import 'package:habit_tracker/resources/color_res.dart';
 import 'package:habit_tracker/resources/text_style.dart';
 import 'package:habit_tracker/utils/widgets.dart';
-
-import 'bloc/habit_detail_bloc.dart';
 
 @RoutePage()
 class HabitDetailPage extends StatefulWidget {
@@ -31,7 +30,8 @@ class _HabitDetailPageState extends State<HabitDetailPage> {
     'asfdasd',
     'asfdasd',
   ];
-  final _detailBloc = HabitDetailBloc(GetIt.I<AbstractRepository>());
+
+  final _detailCubit = HabitDetailCubit(GetIt.I<AbstractRepository>());
 
   // void addDatas(String name, String icon) async {
   //   // Получаем текущий объект HabitModel из базы данных
@@ -61,48 +61,48 @@ class _HabitDetailPageState extends State<HabitDetailPage> {
   // }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBarWithBack(widget.habitModel.title, () {
-        Navigator.pop(context);
-      }, "Ибрахим"),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 28.h,
-          ),
-          Center(
-            child: emojiDetail(widget.habitModel.icon, 3.5, 50),
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          timerDetail(),
-          buttonDetail("Рецидив", () {
-            history.add("${DateTime.now()}");
-            print(history);
-            _detailBloc.add(UpdateHabitEvent(habitModel: widget.habitModel));
-          }),
-          buildRecordText("Попытка - ${widget.habitModel.attempts}",
-              "Рекорд - ${widget.habitModel.record}"),
-          Padding(
-            padding: EdgeInsets.only(left: 18),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "История",
-                style: TextStyleMedium(
-                  color: ColorRes.dark,
-                  fontSize: 18.sp,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            child: BlocBuilder<HabitDetailBloc, HabitDetailState>(
-              bloc: _detailBloc,
-              builder: (context, state) {
-                if (state is HabitUpdateSucsesState) {
-                  return ListView.separated(
+    return BlocProvider(
+      create: (context) => _detailCubit,
+      child: BlocBuilder<HabitDetailCubit,HabitDetailState>(
+        builder: (context, state) {
+            return Scaffold(
+              appBar: buildAppBarWithBack(widget.habitModel.title, () {
+                Navigator.pop(context);
+              }, "Ибрахим"),
+              body: Column(
+                children: [
+                  SizedBox(
+                    height: 28.h,
+                  ),
+                  Center(
+                    child: emojiDetail(widget.habitModel.icon, 3.5, 50),
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  timerDetail(),
+                  buttonDetail("Рецидив", () {
+                    history.add("${DateTime.now()}");
+                    _detailCubit.updateHabit(widget.habitModel);
+                    print(history);
+                    //  _detailBloc.add(UpdateHabitEvent(habitModel: widget.habitModel));
+                  }),
+                  buildRecordText("Попытка - ${widget.habitModel.attempts}",
+                      "Рекорд - ${widget.habitModel.record}"),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "История",
+                        style: TextStyleMedium(
+                          color: ColorRes.dark,
+                          fontSize: 18.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListView.separated(
                     padding: const EdgeInsets.only(top: 16),
                     itemCount: history.length,
                     physics: const BouncingScrollPhysics(),
@@ -110,40 +110,24 @@ class _HabitDetailPageState extends State<HabitDetailPage> {
                     itemBuilder: (context, i) {
                       return buildHistoryText(history[i], () {});
                     },
-                  );
-                } else if (state is HabitUpdateFailureState) {
-                  return Center(
-                    child: Text("${state.exception}"),
-                  );
-                } else if (state is HabitUpdateLoadingState) {
-                  return const Center(
-                    child: Text(
-                      "LOADING",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  );
-                } else {
-                  print("Необработанное состояние: $state");
-                  return const Center(
-                    child: Text("Что то другое"),
-                  );
-                }
-              },
-            ),
-          ),
+                  )
 
-          //buildHistoryText("15 января 2023 г. 16:30")
-        ],
+                  //buildHistoryText("15 января 2023 г. 16:30")
+                ],
+              ),
+              // );
+              //}
+              //   if (state is HabitUpdateFailureState) {
+              //     return Center(
+              //       child: Text('${state.exception}'),
+              //     );
+              //   }
+              //   return const Center(child: Text("Закгрузка"));
+              // },
+            );
+          return Center(child: Text("OLOLOLOL"),);
+        },
       ),
-      // );
-      //}
-      //   if (state is HabitUpdateFailureState) {
-      //     return Center(
-      //       child: Text('${state.exception}'),
-      //     );
-      //   }
-      //   return const Center(child: Text("Закгрузка"));
-      // },
     );
   }
 }

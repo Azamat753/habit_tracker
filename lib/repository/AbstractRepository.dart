@@ -9,4 +9,5 @@ abstract class AbstractRepository {
   Future<void> deleteHabit(HabitModel habitModel);
 
   Future<void> updateHabit(HabitModel habitModel);
+
 }
