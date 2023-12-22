@@ -4,4 +4,5 @@ part of 'habit_detail_cubit.dart';
 class HabitDetailState with _$HabitDetailState {
   const factory HabitDetailState.initial() = _Initial;
   const factory HabitDetailState.update() = Update;
+  const factory HabitDetailState.error(exception) = Error;
 }

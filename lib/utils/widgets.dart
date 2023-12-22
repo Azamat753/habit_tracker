@@ -135,7 +135,7 @@ AppBar buildAppBarWithBack(
 Widget buildHistoryText(String text,Function() deleteDate) {
   return Container(
     width: double.infinity,
-    margin: EdgeInsets.symmetric(vertical: 18.h, horizontal: 16.w),
+    margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
